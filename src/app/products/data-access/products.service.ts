@@ -51,4 +51,15 @@ import { catchError, Observable, of, tap } from "rxjs";
             tap(() => this._products.update(products => products.filter(product => product.id !== productId))),
         );
     }
+    
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 }

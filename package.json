@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve"
+    "start": "ng serve",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +41,12 @@
     "@biomejs/biome": "1.7.2",
     "@types/chart.js": "2.9.30",
     "@types/node": "20.12.12",
-    "ts-node": "7.0.0"
+    "@typescript-eslint/eslint-plugin": "^8.12.2",
+    "@typescript-eslint/parser": "^8.12.2",
+    "angular-eslint": "18.4.0",
+    "eslint": "^9.13.0",
+    "ts-node": "7.0.0",
+    "tslint-to-eslint-config": "^2.14.3",
+    "typescript-eslint": "8.10.0"
   }
 }

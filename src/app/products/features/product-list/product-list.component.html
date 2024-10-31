@@ -5,17 +5,51 @@
 <p-dataView #dv [value]="products()">
     <ng-template pTemplate="list" let-products>
         @for (product of products; track product) {
-            <p-card class="block mb-2">
-                <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
-                <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
-
-                <ng-template pTemplate="footer">
-                    <div class="flex gap-3 mt-1">
-                        <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
-                        <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
+            <p-card class="block mb-4" [style]="{ width: '420px' }">
+                <!-- En-tête de la carte avec l'image du produit -->
+                <div class="p-card-header">
+                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" />
+                </div>
+            
+                <!-- Contenu principal de la carte avec toutes les informations pertinentes du produit -->
+                <div class="p-card-content">
+                    <!-- Catégorie et Nom du produit -->
+                    <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+                    <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+                    
+                    <!-- Description du produit -->
+                    <p class="text-sm text-muted mt-1">{{ product.description }}</p>
+            
+                    <!-- Prix du produit -->
+                    <div class="text-primary font-bold text-xl mt-2">Prix : {{ product.price | currency }}</div>
+            
+                    <!-- Référence interne du produit -->
+                    <div class="mt-2">
+                        <span class="text-secondary">Référence interne :</span> {{ product.internalReference }}
                     </div>
-                </ng-template>
+            
+                    <!-- Date de création du produit -->
+                    <div class="mt-1">
+                        <span class="text-secondary">Date de création :</span> {{ product.createdAt | date:'short' }}
+                    </div>
+            
+                    <!-- Statut d'inventaire avec badge coloré -->
+                    <div class="mt-2">
+                        <p-tag [value]="product.inventoryStatus | inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                    </div>
+            
+        
+                </div>
+            
+                <!-- Pied de la carte avec les boutons d'action -->
+                <div class="p-card-footer flex gap-3 mt-3">
+                    <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"></p-button>
+                    <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)"></p-button>
+                    <p-button label="Ajouter au panier" icon="pi pi-shopping-cart" (onClick)="onAddToCart(product)"></p-button>
+                </div>
             </p-card>
+            
+            
         }
     </ng-template>
 </p-dataView>

@@ -1,0 +1,30 @@
+<p-toast position="top-center"></p-toast>
+
+<div class="p-card p-4" style="max-width: 600px; margin: auto;">
+  <h2 class="text-center">Contact</h2>
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="p-fluid">
+
+    <div class="field">
+      <label for="email" class="block font-bold mb-2">Email</label>
+      <input id="email" formControlName="email" pInputText type="email" placeholder="Votre email" class="w-full" />
+      <small *ngIf="submitted && contactForm.get('email')?.invalid" class="p-error block mt-1">
+        <ng-container *ngIf="contactForm.get('email')?.hasError('required')">L'email est requis.</ng-container>
+        <ng-container *ngIf="contactForm.get('email')?.hasError('email')">Format d'email invalide.</ng-container>
+      </small>
+    </div>
+
+    <div class="field mt-3">
+      <label for="message" class="block font-bold mb-2">Message</label>
+      <textarea id="message" formControlName="message" pInputTextarea rows="5" placeholder="Votre message (max 300 caractères)" class="w-full"></textarea>
+      <small *ngIf="submitted && contactForm.get('message')?.invalid" class="p-error block mt-1">
+        <ng-container *ngIf="contactForm.get('message')?.hasError('required')">Le message est requis.</ng-container>
+        <ng-container *ngIf="contactForm.get('message')?.hasError('maxlength')">Le message ne doit pas dépasser 300 caractères.</ng-container>
+      </small>
+    </div>
+
+    <div class="flex justify-content-end mt-4">
+      <button type="submit" pButton label="Envoyer" icon="pi pi-send" class="p-button-success p-button-raised" style="width: 100%; max-width: 150px;"></button>
+    </div>
+  </form>
+</div>
