@@ -1,48 +1,59 @@
-<p-table [value]="products()" [tableStyle]="{'min-width': '50rem'}" selectionMode="multiple" [(selection)]="selectedProducts">
-    <ng-template pTemplate="header">
-      <tr>
-        <th style="width: 3rem">
-          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
-        <th>Name</th>
-        <th>Image</th>
-        <th>Price</th>
-        <th>Category</th>
-        <th>Status</th>
-      </tr>
-    </ng-template>
-  
-    <ng-template pTemplate="body" let-product>
-      <tr>
-        <td>
-          <p-tableCheckbox [value]="product"></p-tableCheckbox>
-        </td>
-        <td>{{ product.name }}</td>
-        <td>
-          <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" />
-        </td>
-        <td>{{product.price | currency:'USD'}}</td>
-        <td>{{ product.category }}</td>
-        <td><p-tag [value]="product.inventoryStatus | inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
-      </tr>
-    </ng-template>
-  
-    <ng-template pTemplate="emptymessage">
-      <tr>
-        <td colspan="5" class="text-center">
-          <p>Panier vide</p>
-        </td>
-      </tr>
-    </ng-template>
-  
-    <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
-        Au total il y a {{ products() ? products().length : 0 }} produit(s).
-      </div>
-      <div class="flex justify-content-between mt-3">
-        <p-button type="button" (click)="onClose()" label="Fermer" severity="help"></p-button>
-        <p-button type="button" label="Supprimer" icon="pi pi-trash" severity="danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || selectedProducts.length === 0"></p-button>
-      </div>
-    </ng-template>
-  </p-table>
-  
+<p-table [value]="cartItems()" [tableStyle]="{'min-width': '50rem'}" selectionMode="multiple" [(selection)]="selectedProducts">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Status</th>
+      <th>Quantity</th>
+      <th>Total Price</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="item"></p-tableCheckbox>
+      </td>
+      <td>{{ item.product.name }}</td>
+      <td>
+        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.product.image" [alt]="item.product.name" width="80" class="shadow-4" />
+      </td>
+      <td>{{ item.product.price | currency:'USD' }}</td>
+      <td>{{ item.product.category }}</td>
+      <td>
+        <p-tag [value]="item.product.inventoryStatus | inventoryStatus" [severity]="getSeverity(item.product.inventoryStatus)"></p-tag>
+      </td>
+      <td>
+        <div class="p-inputgroup" style="max-width: 120px;">
+          <button pButton icon="pi pi-minus" (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1" class="p-button-rounded p-button-text p-button-sm p-button-success"></button>
+          <input type="text" pInputText [value]="item.quantity" style="text-align: center; width: 40px;" readonly />
+          <button pButton icon="pi pi-plus" (click)="increaseQuantity(item)" class="p-button-rounded p-button-text p-button-sm p-button-success"></button>
+        </div>
+      </td>
+      <td>{{ item.product.price * item.quantity | currency:'USD' }}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8" class="text-center">
+        <p>Panier vide</p>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      Au total il y a {{ cartItems() ? cartItems().length : 0 }} produit(s).
+    </div>
+    <div class="flex justify-content-between mt-3">
+      <p-button type="button" (click)="onClose()" label="Fermer" severity="help"></p-button>
+      <p-button type="button" label="Supprimer" icon="pi pi-trash" severity="danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || selectedProducts.length === 0"></p-button>
+    </div>
+  </ng-template>
+</p-table>

@@ -8,16 +8,15 @@ import { SplitterModule } from 'primeng/splitter';
 import { ToolbarModule } from 'primeng/toolbar';
 import { PanelMenuComponent } from "./shared/ui/panel-menu/panel-menu.component";
 import { DialogModule } from "primeng/dialog";
-import { ShoppingCart } from "./shopping-cart/shopping-cart.component";
 import { BadgeModule } from 'primeng/badge';
 import { CartService } from "./shopping-cart/data-access/cart.service";
-
+import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
   standalone: true,
-  imports: [RouterModule, SplitterModule, ToolbarModule, PanelMenuComponent, DialogModule, ShoppingCart, BadgeModule],
+  imports: [RouterModule, SplitterModule, ToolbarModule, PanelMenuComponent, DialogModule, ShoppingCartComponent, BadgeModule],
 })
 export class AppComponent {
   title = "ALTEN SHOP";

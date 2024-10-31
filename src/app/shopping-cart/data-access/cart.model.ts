@@ -1,9 +1,6 @@
+import { Product } from "app/products/data-access/product.model";
+
 export interface CartItem {
-    productId: number;       
-    name: string;             
-    image: string;          
-    category: string;        
-    price: number;            
-    quantity: number;         
-    inventoryStatus: string;  
+    product: Product;       
+    quantity : number;  
   }
